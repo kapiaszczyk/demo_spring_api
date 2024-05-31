@@ -1,0 +1,20 @@
+version: '2.25.0'
+name: jobboard-stack
+
+services:
+  api:
+    image: kapiaszczyk/products-api:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: api
+      POSTGRES_PASSWORD: apipassword
+      POSTGRES_DB: demo
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
